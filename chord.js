@@ -1,0 +1,93 @@
+// DATA
+// THIS SHOULD BE A 6x6 MATRIX
+/// matrix[i][j] is number of attacks candidate i has on candidate j
+var matrix = [
+  [0, 0, 0, 0, 0, 0], // DONALD TRUMP 0
+  [20, 0, 500, 100, 120, 10], // JEB BUSH 1
+  [30, 20, 0, 30, 40, 50], // MARCO RUBIO 2
+  [10, 20, 10, 0, 0, 0], // TED CRUZ 3
+  [20, 20, 100, 40, 0, 50], // BEN CARSON 4
+  [10, 20, 30, 0, 500, 0] // JOHN KASICH 5
+];
+// TODO: PUT IN REAL DATA
+
+var candidatesList = ["Donald Trump", "Jeb Bush", "Marco Rubio", "Ted Cruz", "Ben Carson", "John Kasich"];
+var maxValue = 500;
+
+// SVG DIMENSIONS
+var width = 960;
+var height = 500;
+var radius = Math.min(width, height) * .41;
+var avatarRadius = 30;
+
+// CREATE SVG OBJECT
+var svg = d3.select("body").append("svg")
+  .attr("width", width)
+  .attr("height", height)
+  .append("g")
+  .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+// CREATE CHORDS
+var chord = d3.layout.chord()
+  .padding(.05)
+  .sortSubgroups(d3.descending)
+  .matrix(matrix);
+
+// MAP INDEX TO CANDIDATES
+var candidates = d3.scale.ordinal()
+  .domain(d3.range(candidatesList.length))
+  .range(candidatesList);
+
+// MAP INDEX TO COLORS
+var colors = d3.scale.category10();
+
+// MAP VALUE TO WIDTH
+var lineWidth = d3.scale.linear()
+  .domain([0, maxValue])
+  .range([0, 30]);
+
+// DRAW AVATAR CIRCLES
+var angle = d3.scale.linear()
+  .domain([0, candidatesList.length])
+  .range([0, 2 * Math.PI]);
+
+// APPEND ARROWS
+// TODO: ARROWHEAD
+var arrows = svg.append("g").attr("class", "arrows")
+  .selectAll("path")
+  .data(chord.chords)
+  .enter()
+  .append("line")
+  .attr("x1", function(d) { return radius * Math.cos(angle(d.source.index)); })
+  .attr("y1", function(d) { return radius * Math.sin(angle(d.source.index)); })
+  .attr("x2", function(d) { return radius * Math.cos(angle(d.source.subindex)); })
+  .attr("y2", function(d) { return radius * Math.sin(angle(d.source.subindex)); })
+  .style("stroke", function(d) { return colors(d.source.index); })
+  .style("stroke-width", function(d) { return lineWidth(d.source.value); })
+  .style("opacity", 0.5);
+
+// TODO: ADD AVATARS?
+svg.append("g").attr("class", "avatars")
+  .selectAll("circle")
+  .data(chord.groups)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) { return radius * Math.cos(angle(d.index)); })
+  .attr("cy", function(d) { return radius * Math.sin(angle(d.index)); })
+  .attr("r", avatarRadius)
+  .style("fill", function(d) { return colors(d.index); })
+  .on("mouseover", fade(0))
+  .on("mouseout", fade(0.5));
+
+
+// fade all lines except for self
+function fade(opacity, source) {
+  return function(g, i) {
+    svg.selectAll(".arrows line")
+        .filter(function(d) {
+          return d.source.index != i;
+        })
+        .transition()
+        .style("opacity", opacity);
+  };
+}
