@@ -53,15 +53,35 @@ var angle = d3.scale.linear()
 
 // APPEND ARROWS
 // TODO: ARROWHEAD
+
+svg.append("svg:defs").append("svg:marker")
+  .attr("id", "arrowhead")
+  .attr("viewBox", "0 0 4 4")
+  .attr("refX", 4)
+  .attr("refY", 2)
+  .attr("orient", "auto")
+  .append("svg:path")
+  .attr("d", "M 1.5 0 L 4 2 L 1.5 4 z");
+
 var arrows = svg.append("g").attr("class", "arrows")
   .selectAll("path")
   .data(chord.chords)
   .enter()
-  .append("line")
-  .attr("x1", function(d) { return radius * Math.cos(angle(d.source.index)); })
-  .attr("y1", function(d) { return radius * Math.sin(angle(d.source.index)); })
-  .attr("x2", function(d) { return radius * Math.cos(angle(d.source.subindex)); })
-  .attr("y2", function(d) { return radius * Math.sin(angle(d.source.subindex)); })
+  .append("path")
+  .attr("d", function(d) {
+    var x1 = radius * Math.cos(angle(d.source.index));
+    var y1 = radius * Math.sin(angle(d.source.index));
+    var x2 = radius * Math.cos(angle(d.source.subindex));
+    var y2 = radius * Math.sin(angle(d.source.subindex));
+
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    var len = Math.sqrt(dx * dx + dy * dy);
+    var offsetX = dx * avatarRadius / len;
+    var offsetY = dy * avatarRadius / len;
+    return "M " + x1 + " " + y1 + " L " + (x2 - offsetX) + " " + (y2 - offsetY);
+  })
+  .attr("marker-end", "url(\#arrowhead)")
   .style("stroke", function(d) { return colors(d.source.index); })
   .style("stroke-width", function(d) { return lineWidth(d.source.value); })
   .style("opacity", 0.5);
