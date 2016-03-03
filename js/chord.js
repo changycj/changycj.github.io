@@ -26,6 +26,8 @@ $(document).ready(function() {
   var maxValue = 2428127;
   var minValue = 468;
 
+  var total = 4476755;
+
   // SVG DIMENSIONS
   var width = 960;
   var height = 600;
@@ -94,19 +96,30 @@ $(document).ready(function() {
     .enter()
     .append("g")
     .on("mouseenter", function(d, i) {
-      $("#chord-title").fadeOut(400, function() {
+      $("#chord-title").fadeOut(200, function() {
         $("#chord-title").html("Attack Ads from " + names[i]).promise().done(function() {
-          $("#chord-title").fadeIn(400);
+          $("#chord-title").fadeIn(200);
+        });
+      });
+      $("#chord-subtitle").fadeOut(200, function() {
+        $("#chord-subtitle").html(getSubtitle(i)).promise().done(function() {
+          $("#chord-subtitle").fadeIn(200);
         });
       });
       fade(0, i);
     })
     .on("mouseleave", function(d, i) {
-      $("#chord-title").fadeOut(400, function() {
+      $("#chord-title").fadeOut(200, function() {
         $("#chord-title").html("Attack Ads among Candidates").promise().done(function() {
-          $("#chord-title").fadeIn(400);
+          $("#chord-title").fadeIn(200);
         });
-      });      fade(0.5, i); 
+      });  
+      $("#chord-subtitle").fadeOut(200, function() {
+        $("#chord-subtitle").html("Total Number of Ads: 4,476,755").promise().done(function() {
+          $("#chord-subtitle").fadeIn(200);
+        });
+      });    
+      fade(0.5, i); 
     });
 
   avatar.append("clipPath").attr("id", function(d) { return "clip" + d.index; })
@@ -154,6 +167,23 @@ $(document).ready(function() {
     return "url(\#arrowhead" + i + ")"
   }
 
+  function getSubtitle(i) {
+    var str = "";
+    for (var j = 0; j < names.length; j++) {
+      var name = names[j];
+      if (matrix[i][j] > 0) {
+        if (str.length > 0) {
+          str += " - "
+        }
+        str += "On " + name + ": " + Number(matrix[i][j]).toLocaleString("en");
+      }
+    }
+    if (str.length == 0) {
+      str = "No Attack Ads from" + name;
+    }
+
+    return str;
+  }
   // fade all lines except for self
   function fade(opacity, i) {
     svg.selectAll(".arrows path")
