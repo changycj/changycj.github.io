@@ -173,13 +173,13 @@ $(document).ready(function() {
       var name = names[j];
       if (matrix[i][j] > 0) {
         if (str.length > 0) {
-          str += " - "
+          str += " / "
         }
         str += "On " + name + ": " + Number(matrix[i][j]).toLocaleString("en");
       }
     }
     if (str.length == 0) {
-      str = "No Attack Ads from" + name;
+      str = "No Attack Ads from " + names[i];
     }
 
     return str;
