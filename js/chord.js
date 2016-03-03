@@ -9,6 +9,15 @@ var matrix = [
   [20, 20, 100, 40, 0, 50], // BEN CARSON 4
   [10, 20, 30, 0, 100, 0] // JOHN KASICH 5
 ];
+
+var avatars = [
+  "./resources/trump.jpg",
+  "./resources/bush.jpg",
+  "./resources/rubio.jpg",
+  "./resources/cruz.jpg",
+  "./resources/carson.jpg",
+  "./resources/kasich.jpg"
+];
 // TODO: PUT IN REAL DATA
 
 var candidatesList = ["Donald Trump", "Jeb Bush", "Marco Rubio", "Ted Cruz", "Ben Carson", "John Kasich"];
@@ -19,6 +28,7 @@ var width = 960;
 var height = 800;
 var radius = Math.min(width, height) * 0.5;
 var avatarRadius = 30;
+var avatarBorder = 2;
 
 // CREATE SVG OBJECT
 var svg = d3.select("body").append("svg")
@@ -79,21 +89,36 @@ arrowGroup.append("path")
   })
   .attr("marker-end", function(d) { return getArrowhead(d.source.index); });
 
-// TODO: ADD AVATARS?
-svg.append("g").attr("class", "avatars")
-  .selectAll("circle")
+
+var avatar = svg.append("g").attr("class", "avatars")
+  .selectAll("g")
   .data(chord.groups)
   .enter()
-  .append("circle")
-  .attr("cx", function(d) { return radius * Math.cos(angle(d.index)); })
-  .attr("cy", function(d) { return radius * Math.sin(angle(d.index)); })
-  .attr("r", avatarRadius)
-  .style("fill", function(d) { return colors(d.index); })
+  .append("g")
   .on("mouseover", fade(0))
   .on("mouseout", fade(0.5));
 
+avatar.append("clipPath").attr("id", function(d) { return "clip" + d.index; })
+  .append("circle")
+  .attr("cx", function(d) { return radius * Math.cos(angle(d.index)); })
+  .attr("cy", function(d) { return radius * Math.sin(angle(d.index)); })
+  .attr("r", avatarRadius);
 
-// fade all lines except for self
+avatar.append("image")
+  .attr("xlink:href", function(d) { return avatars[d.index]; })
+  .attr("clip-path", function(d) { return "url(#clip" + d.index + ")"; })
+  .attr("x", function(d) { return radius * Math.cos(angle(d.index)) - avatarRadius; })
+  .attr("y", function(d) { return radius * Math.sin(angle(d.index)) - avatarRadius; })
+  .attr("height", 2 * avatarRadius)
+  .attr("width", 2 * avatarRadius);
+
+avatar.append("circle")
+  .attr("cx", function(d) { return radius * Math.cos(angle(d.index)); })
+  .attr("cy", function(d) { return radius * Math.sin(angle(d.index)); })
+  .attr("r", avatarRadius - avatarBorder/2.0)
+  .attr("stroke", function(d) { return colors(d.index); })
+  .attr("stroke-width", avatarBorder)
+  .attr("fill", "none");
 
 function getArrowhead(i) {
   var marker = svg.append("svg:defs").append("svg:marker")
@@ -118,7 +143,8 @@ function getArrowhead(i) {
   return "url(\#arrowhead" + i + ")"
 }
 
-function fade(opacity, source) {
+// fade all lines except for self
+function fade(opacity) {
   return function(g, i) {
     svg.selectAll(".arrows path")
         .filter(function(d) {
