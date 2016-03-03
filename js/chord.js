@@ -56,14 +56,11 @@ $(document).ready(function() {
     .domain([minValue, maxValue])
     .range([1, 30]);
 
-  // DRAW AVATAR CIRCLES
   var angle = d3.scale.linear()
     .domain([0, avatars.length])
     .range([0, 2 * Math.PI]);
 
   // APPEND ARROWS
-  // TODO: ARROWHEAD
-
   var arrowGroup = svg
     .selectAll("g.arrows")
     .data(chord.chords)
@@ -71,6 +68,7 @@ $(document).ready(function() {
     .append("g").attr("class", "arrows")
 
   arrowGroup
+    .filter(function(d) { return d.source.value > 0; })
     .append("path")
     .attr("class", function(d) { return "arrows" + d.source.index; })
     .style("stroke-width", function(d) { return lineWidth(d.source.value); })
@@ -90,7 +88,30 @@ $(document).ready(function() {
       return "M " + x1 + " " + y1 + " L " + (x2 - offsetX) + " " + (y2 - offsetY);
     })
     .attr("marker-end", function(d) { return getArrowhead(d.source.index); });
+  
+  arrowGroup
+    .filter(function(d) { return d.target.value > 0; })
+    .append("path")
+    .attr("class", function(d) { return "arrows" + d.target.index; })
+    .style("stroke-width", function(d) { return lineWidth(d.target.value); })
+    .style("stroke", function(d) { return colors(d.target.index); })
+    .style("opacity", 0.5)
+    .attr("d", function(d) {
+      var x1 = radius * Math.cos(angle(d.target.index));
+      var y1 = radius * Math.sin(angle(d.target.index));
+      var x2 = radius * Math.cos(angle(d.target.subindex));
+      var y2 = radius * Math.sin(angle(d.target.subindex));
 
+      var dx = x2 - x1;
+      var dy = y2 - y1;
+      var len = Math.sqrt(dx * dx + dy * dy);
+      var offsetX = dx * avatarRadius / len;
+      var offsetY = dy * avatarRadius / len;
+      return "M " + x1 + " " + y1 + " L " + (x2 - offsetX) + " " + (y2 - offsetY);
+    })
+    .attr("marker-end", function(d) { return getArrowhead(d.target.index); });
+
+  // DRAW AVATAR CIRCLES
   var avatar = svg.append("g").attr("class", "avatars")
     .selectAll("g")
     .data(chord.groups)
@@ -189,7 +210,7 @@ $(document).ready(function() {
   function fade(opacity, i) {
     svg.selectAll(".arrows path")
       .filter(function(d) {
-        return d.source.index != i;
+        return !d3.select(this).classed("arrows" + i);
       })
       .transition()
       .style("opacity", opacity);
