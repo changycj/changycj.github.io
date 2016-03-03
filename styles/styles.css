@@ -1,0 +1,25 @@
+.projectHeading {
+	color: Gray;
+	padding-left: 30px;
+	padding-top: 10px;
+}
+
+#left {
+	float: left;
+}
+
+#right {
+	float: right;
+	padding-top: -10px;
+	padding-right: 30px;
+}
+
+#titleDiv {
+	padding-top: 100px;
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+#title {
+	font-size: 400%;
+}
