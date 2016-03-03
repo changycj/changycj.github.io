@@ -1,3 +1,7 @@
+body {
+	background-color: gray;
+}
+
 .projectHeading {
 	color: Gray;
 	padding-left: 30px;
@@ -23,3 +27,4 @@
 #title {
 	font-size: 400%;
 }
+
