@@ -1,11 +1,12 @@
-div {
-	background-color: LightGray;
+body {
+	background-color: #e5e4e2;
+	font: Avenir;
 }
 
 .projectHeading {
 	color: Gray;
-	padding-left: 30px;
-	padding-top: 10px;
+	padding-left: 50px;
+	padding-top: 30px;
 }
 
 #left {
@@ -14,17 +15,51 @@ div {
 
 #right {
 	float: right;
-	padding-top: -10px;
-	padding-right: 30px;
+	padding-right: 50px;
 }
 
 #titleDiv {
-	padding-top: 100px;
-	padding-left: 30px;
-	padding-right: 30px;
+	padding-top: 90px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 80px;
 }
 
 #title {
 	font-size: 400%;
 }
 
+#graphicsDiv img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#chordDiagramDiv {
+	padding-top: 50px;
+	width: 100%;
+}
+
+#explainationDiv {
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#chord {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#dataButton {
+	padding-top: 20px;
+	padding-left: 50px;
+	padding-bottom: 50px;
+}
+
+#detailsDiv {
+	margin-top: -20px;
+	padding-left: 50px;
+	padding-bottom:50px;
+}
