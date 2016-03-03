@@ -70,7 +70,9 @@ $(document).ready(function() {
     .enter()
     .append("g").attr("class", "arrows")
 
-  arrowGroup.append("path")
+  arrowGroup
+    .append("path")
+    .attr("class", function(d) { return "arrows" + d.source.index; })
     .style("stroke-width", function(d) { return lineWidth(d.source.value); })
     .style("stroke", function(d) { return colors(d.source.index); })
     .style("opacity", 0.5)
@@ -85,10 +87,9 @@ $(document).ready(function() {
       var len = Math.sqrt(dx * dx + dy * dy);
       var offsetX = dx * avatarRadius / len;
       var offsetY = dy * avatarRadius / len;
-      return "M " + x1 + " " + y1 + " L " + (x2 - offsetX ) + " " + (y2 - offsetY);
+      return "M " + x1 + " " + y1 + " L " + (x2 - offsetX) + " " + (y2 - offsetY);
     })
     .attr("marker-end", function(d) { return getArrowhead(d.source.index); });
-
 
   var avatar = svg.append("g").attr("class", "avatars")
     .selectAll("g")
@@ -159,10 +160,10 @@ $(document).ready(function() {
 
     marker.append("svg:path")
       .attr("d", "M 2 2 L 2 3 L 1 3 z")
-      .style("fill", "white");
+      .style("fill", "#E5E4E2");
     marker.append("svg:path")
       .attr("d", "M 2 2 L 2 1 L 1 1 z")
-      .style("fill", "white");
+      .style("fill", "#E5E4E2");
 
     return "url(\#arrowhead" + i + ")"
   }
@@ -179,7 +180,7 @@ $(document).ready(function() {
       }
     }
     if (str.length == 0) {
-      str = "No Attack Ads from" + name;
+      str = "No Attack Ads from " + names[i];
     }
 
     return str;
@@ -188,7 +189,7 @@ $(document).ready(function() {
   function fade(opacity, i) {
     svg.selectAll(".arrows path")
       .filter(function(d) {
-            return d.source.index != i;
+        return d.source.index != i;
       })
       .transition()
       .style("opacity", opacity);
