@@ -115,7 +115,7 @@ $(document).ready(function() {
         });
       });  
       $("#chord-subtitle").fadeOut(200, function() {
-        $("#chord-subtitle").html("Total Number of Ads: 4,476,755").promise().done(function() {
+        $("#chord-subtitle").html("Total Airings of Attack Ads: 4,476,755").promise().done(function() {
           $("#chord-subtitle").fadeIn(200);
         });
       });    
