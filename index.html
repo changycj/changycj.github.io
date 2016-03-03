@@ -42,6 +42,26 @@
 
 	<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
 	<script type='text/javascript' src='js/chord.js'></script>
+	<script type='text/javascript'> 
+		$(document).ready(function() {
+			var clicked = false; 
+			$('#detailsDiv').hide(); 
+		
+			$('#dataButton').on("click", function() {
+
+				if (clicked == false) {
+					clicked = true; 
+					$('#detailsDiv').show();
+				} else {
+					clicked = false; 
+					$('#detailsDiv').hide(); 
+				}
+			});	
+
+			
+
+		}); 
+	</script>
 
 </head>
 
@@ -52,7 +72,7 @@
 	</div> 
 
 	<div id="titleDiv"> 
-		<h1 id="title"><span style="color:OrangeRed">#NeverTrump:</span> The Candidates Are on Board, but What About the SuperPACs?</h1>
+		<h1 id="title"><span style="color:#F04F50">#NeverTrump:</span> The Candidates Are on Board, but What About the SuperPACs?</h1>
 		<h3> For the past several months, the Republican establishment has been virtually unanimous in its opposition of Donald Trump's campaign. </h3> 
 	</div>
 
@@ -62,7 +82,7 @@
 	</div>
 
 	<div id="explainationDiv"> 
-		<h3>Thus, it is reasonable to assume that SuperPACs that support candidates other than Trump are focusing their attack ads on him. However, the data suggests another story. <span style="color:OrangeRed">Mouse over the candidate's picture to show who their supporting superPACs are attacking.</span></h3> 
+		<h3>Thus, it is reasonable to assume that SuperPACs that support candidates other than Trump are focusing their attack ads on him. However, the data suggests another story. <span style="color:#F04F50">Mouse over the candidate's picture to show who their supporting superPACs are attacking.</span></h3> 
 	</div> 
 
 	<div id="chordDiagramDiv"> 
@@ -71,13 +91,13 @@
 		<svg id="chord" style="display:block"></svg> 
 	</div>
 
-	<!-- <button id="dataButton" type="button" class="btn btn-link"><span style="color:Gray">Details About the Data</span></button> --> 
+	<button id="dataButton" type="button" class="btn btn-link"><span style="color:Gray">Details About the Data</span></button>
 
 	<div id="detailsDiv">
 		<h4>Data taken from Political TV Ad Archive in February 2016</h4>
 		<h5>SuperPACs and Number of Ad Airings, By Supported Candidate:</h5>
 		<ul>
-			<li><span style="font-weight:bold">Ted Cruz:</span> Stand For Truth (1,200,333 against Trump), Keep the Promise I (32,768 against Trump, 38,635 against Rubio), Club for Growth Action (221,841 against Trump, split with Rubio) </li> 
+			<li><span style="font-weight:bold">Ted Cruz:</span> Stand For Truth (1,200,333 against Rubio), Keep the Promise I (32,768 against Trump, 38,635 against Rubio), Club for Growth Action (221,841 against Trump, split with Rubio) </li> 
 			<li><span style="font-weight:bold">Donald Trump:</span> none</li> 
 			<li><span style="font-weight:bold">Jeb Bush:</span> Right to Rise USA (9,604 against Trump, 404,482 against Kasich, 2,428,147 against Rubio) </li> 
 			<li><span style="font-weight:bold">Ben Carson:</span> none</li> 
@@ -85,5 +105,11 @@
 			<li><span style="font-weight:bold">John Kasich:</span> New Day for America (243 against Trump) </li> 
 		<ul>
 	</div>
+
+	<div id="explainationDiv2"> 
+		<h3><span style="color:#F04F50">If #NeverTrump is the goal, you wouldn't know it by looking at the SuperPACs. </span></h3> 
+	</div> 
+
+
 
 </body>
