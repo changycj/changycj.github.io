@@ -3,6 +3,6 @@ $(document).ready(function() {
 	var delays = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000];
 
 	for (var i = 0; i < items.length; i++) {
-		$("#" + items[i]).delay(delays[i]).fadeIn(400);
+		$("#" + items[i]).delay(delays[i]).fadeIn(600);
 	}
 })
