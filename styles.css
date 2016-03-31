@@ -10,6 +10,8 @@ body {
 
 .title-div {
 	padding: 0px 50px;
+	margin-top: -15px;
+	margin-bottom: -15px;
 	font-size: 200%;
 	color: #c1272d;
 }
