@@ -5,7 +5,7 @@ body {
 
 .header-div {
 	color: Gray;
-	padding: 30px 50px 0px;
+	padding: 20px 50px 0px;
 }
 
 .title-div {
@@ -59,4 +59,8 @@ strong {
 .button:hover {
 	background-color: rgba(193, 39, 45, 0.3);
 	color: #971e23;
+}
+
+.info-div {
+	padding-left: 50px; 
 }
