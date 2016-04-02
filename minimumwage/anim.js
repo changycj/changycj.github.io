@@ -1,8 +1,47 @@
-$(document).ready(function() {
-	var items = ["s_1", "s_2", "s_3", "s_4", "s_5", "s_6", "s_7", "s_8"];
-	var delays = [115000, 116000, 124000, 132000, 136000, 140000, 145000, 150000];
 
-	for (var i = 0; i < items.length; i++) {
-		$("#" + items[i]).delay(delays[i]).fadeIn(600);
-	}
-})
+var player;
+
+function onYouTubeIframeAPIReady() {
+
+	player = new YT.Player('player', {
+		height: '315',
+		width: '560',
+		videoId: '6AkX1ogq8KY',
+		events: {
+			'onReady' : startVideo
+		}
+	});
+}
+
+function startVideo() {
+	
+	// make sure the document is also ready
+	$(document).ready(function() {
+
+		var delays = [
+			{ id: "s_1", delay: 114 },
+			{ id: "s_2", delay: 114 },
+			{ id: "s_3", delay: 123 },
+			{ id: "s_4", delay: 130 },
+			{ id: "s_5", delay: 135 },
+			{ id: "s_6", delay: 143 },
+			{ id: "s_7", delay: 148 },
+			{ id: "s_8", delay: 148 }
+		];
+
+		player.playVideo();
+
+		setInterval(function() {
+			var time = player.getCurrentTime();
+
+			delays.forEach(function(d, i) {
+				if (d.delay <= time) {
+					$("#" + d.id).fadeIn();
+				} else {
+					$("#" + d.id).fadeOut();
+				}
+			});
+
+		}, 1000);
+	});
+}
