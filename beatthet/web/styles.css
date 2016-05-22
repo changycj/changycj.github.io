@@ -1,0 +1,152 @@
+/* for the map */
+.compass .back {
+	fill: #eee;
+	fill-opacity: .8;
+}		
+.compass .fore {
+	stroke: #999;
+	stroke-width: 1.5px;
+}
+.compass rect.back.fore {
+	fill: #999;
+	fill-opacity: .3;
+	stroke: #eee;
+	stroke-width: 1px;
+	shape-rendering: crispEdges;
+}
+.compass .direction {
+	fill: none;
+}
+.compass .chevron {
+	fill: none;
+	stroke: #999;
+	stroke-width: 5px;
+}
+.compass .zoom .chevron {
+	stroke-width: 4px;
+}
+.compass .active .chevron, .compass .chevron.active {
+	stroke: #fff;
+}
+.compass.active .active .direction {
+	fill: #999;
+}
+
+/* website styling */
+body {
+	background-color: #282828;
+}
+
+#temp {
+	position: absolute;
+	top: 1000px;
+}
+
+#projectHeader {
+	margin-top: 10px;
+	padding-left: 30px;
+	color: Gray;
+}
+
+#route-video {
+	z-index: 1;
+	position: absolute;
+	top: 38px;
+	left: 0;
+	width: 100%;
+	height: 95%;
+}
+
+#map-div {
+	position: absolute; 
+	z-index: 1000;
+	top: 59%; 
+	left: 68%;
+}
+
+#factOverlay {
+	position: absolute;
+	z-index: 2;
+	top: 8%; 
+	left: 8%;
+	width: 675px;
+}
+
+#welcomeScreenDiv {
+	margin-left: 240px;
+	margin-right: 240px;
+	margin-top: 250px;
+}
+
+#welcomeMessage, .endMessage {
+	color: #66FF33;
+	font-size: 500%;
+	padding: 10px 0; 
+}
+
+#turboBoostMessageDiv {
+	position: absolute;
+	z-index: 3;
+	top: 35%; 
+	left: 40%;
+	width: 675px;
+}
+
+#turboBoostMessage, #turboBoostExpiredMessage {
+	display: none;'
+	color: #66FF33;
+	text-shadow: #000 0px 0px 3px,   #000 0px 0px 3px,   #000 0px 0px 3px,
+             #000 0px 0px 3px,   #000 0px 0px 3px,   #000 0px 0px 3px;
+    -webkit-font-smoothing: antialiased;
+}
+
+#buttonDiv {
+	margin-top: 50px;
+	margin-left: 180px;
+	margin-right: 180px;
+}
+
+.buttonGroup {
+	font-size: 300%; 
+	background-color: transparent;
+	color: white;
+	margin: 10px;
+	border-color: #66FF33;
+}
+
+.buttonGroup:hover {
+	background-color: #66FF33;
+	border-color: #66FF33;
+	color: #282828;
+}
+
+#endScreenDiv {
+	margin-left: 240px;
+	margin-right: 240px;
+	margin-top: 80px;
+}
+
+.endMessageSecondary {
+	color: LightGray;
+	font-size: 300%; 
+}
+
+#enterEmailBox {
+	width: 800px;
+	height: 100px;
+	font-size: 80px;
+	color: LightGray;
+	border-width: 0px 0px 5px 0px;
+	border-color: #66FF33;
+	background-color: transparent;
+	outline: none;
+}
+
+[id^="s_"] {
+	display: none;
+	/*color: #69D65E;*/
+	color: #66FF33;
+	text-shadow: #000 0px 0px 3px,   #000 0px 0px 3px,   #000 0px 0px 3px,
+             #000 0px 0px 3px,   #000 0px 0px 3px,   #000 0px 0px 3px;
+    -webkit-font-smoothing: antialiased;
+}
